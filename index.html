@@ -213,9 +213,18 @@
                         </button>
                         <input type="file" id="import-file-input" accept=".json" class="hidden" onchange="importBackupData(event)">
                     </div>
+
+                    <!-- Google Sheets Easy Embed -->
+                    <div class="mt-4 pt-4 border-t border-cream-300/60">
+                        <label class="text-[10px] font-bold text-charcoal-700 mb-2 block"><i class="fa-solid fa-link text-emerald-700"></i> عرض Google Sheet مباشر</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="sheet-embed-input" placeholder="ضع رابط الشيت أو كود <iframe> هنا..." class="flex-1 text-[10px] p-2.5 rounded-xl border border-cream-300 focus:border-emerald-700 outline-none bg-white font-sans text-left" dir="ltr">
+                            <button onclick="applySheetEmbed()" class="py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold transition shadow-sm whitespace-nowrap">ربط وعرض</button>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="flex gap-2 border-t border-cream-300 pt-4">
+                <div class="flex gap-2 border-t border-cream-300 pt-4 mt-4">
                     <button onclick="window.print()" class="flex-1 py-2 bg-charcoal-900 hover:bg-charcoal-800 text-white rounded-xl text-xs font-bold transition shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-print"></i> طباعة التقرير
                     </button>
@@ -243,6 +252,21 @@
             <!-- Dynamic Calendar Container -->
             <div id="calendar-days-grid" class="grid grid-cols-7 gap-2 sm:gap-3 print-grid">
                 <!-- Javascript will inject the grid items here -->
+            </div>
+        </div>
+
+        <!-- Google Sheet Viewer -->
+        <div id="google-sheet-viewer" class="hidden mt-8 bg-cream-50 border border-cream-300 rounded-[32px] p-4 sm:p-8 shadow-elegant no-print transition-all duration-500">
+            <div class="flex justify-between items-center mb-4 px-2">
+                <h3 class="font-bold text-sm text-charcoal-900 flex items-center gap-2">
+                    <i class="fa-solid fa-table text-emerald-700"></i> جدول البيانات المرفق (Google Sheets)
+                </h3>
+                <button onclick="removeSheet()" class="text-[10px] bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1 shadow-sm border border-red-100">
+                    <i class="fa-solid fa-trash-can"></i> إزالة الربط
+                </button>
+            </div>
+            <div class="w-full h-[500px] sm:h-[600px] rounded-2xl overflow-hidden border border-cream-300 shadow-inner bg-white relative">
+                <iframe id="sheet-iframe" class="w-full h-full border-none absolute inset-0" src=""></iframe>
             </div>
         </div>
     </main>
@@ -412,6 +436,7 @@
             renderCalendar();
             calculateCountdownToEid();
             updateLiveStats();
+            renderSheet(); // Load sheet if exists
         };
 
         function loadLocalData() {
@@ -704,6 +729,52 @@
             dialog.classList.add('opacity-0');
             container.classList.add('scale-95');
             setTimeout(() => dialog.classList.add('hidden'), 300);
+        }
+
+        // --- Google Sheets Viewer Logic ---
+        function applySheetEmbed() {
+            let input = document.getElementById('sheet-embed-input').value.trim();
+            if (!input) {
+                showAlert("تنبيه", "الرجاء إدخال رابط أو كود التضمين الخاص بـ Google Sheets.", true);
+                return;
+            }
+
+            let url = input;
+            // Extract the SRC automatically if the user pastes the full <iframe> html code
+            const srcMatch = input.match(/src=["'](.*?)["']/);
+            if (srcMatch && srcMatch[1]) {
+                url = srcMatch[1];
+            }
+
+            localStorage.setItem('dh_1447_sheet_url', url);
+            renderSheet(true);
+        }
+
+        function renderSheet(isNew = false) {
+            const url = localStorage.getItem('dh_1447_sheet_url');
+            const viewer = document.getElementById('google-sheet-viewer');
+            const iframe = document.getElementById('sheet-iframe');
+            const input = document.getElementById('sheet-embed-input');
+
+            if (url) {
+                iframe.src = url;
+                viewer.classList.remove('hidden');
+                if(input) input.value = url;
+                
+                // Smooth scroll to the sheet if it was just added
+                if (isNew) {
+                    setTimeout(() => viewer.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+                }
+            } else {
+                iframe.src = "";
+                viewer.classList.add('hidden');
+                if(input) input.value = "";
+            }
+        }
+
+        function removeSheet() {
+            localStorage.removeItem('dh_1447_sheet_url');
+            renderSheet();
         }
     </script>
 </body>

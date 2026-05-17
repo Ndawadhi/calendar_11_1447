@@ -8,10 +8,10 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Premium Classical Fonts -->
+    <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,37 +21,29 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Noto Naskh Arabic"', 'sans-serif'],
+                        sans: ['"Noto Naskh Arabic"', 'system-ui', '-apple-system', 'sans-serif'],
                         display: ['"Markazi Text"', 'serif'],
-                        classic: ['"Amiri"', 'serif'],
                     },
                     colors: {
-                        cream: {
-                            50: '#FFFCF8',
-                            100: '#FDF8F0',
-                            200: '#F5EBE0', // Base BG
-                            300: '#EBE0D3', // Borders
-                            400: '#D5C8B8',
+                        mac: {
+                            bg: '#F5F5F7',
+                            text: '#1D1D1F',
+                            textMuted: '#86868B',
+                            blue: '#007AFF',
+                            green: '#34C759',
+                            red: '#FF3B30',
+                            gray: '#E5E5EA',
+                            grayDark: '#C7C7CC'
                         },
                         gold: {
-                            400: '#D4AF37', // Classic Gold
-                            500: '#C59B27', // Hover state
+                            500: '#C59B27',
                             600: '#A67F1A',
-                        },
-                        emerald: {
-                            700: '#047857', // Arafah Green
-                            800: '#064E3B',
-                        },
-                        charcoal: {
-                            700: '#334155',
-                            800: '#1E293B',
-                            900: '#0F172A', // Main Text
                         }
                     },
                     boxShadow: {
-                        'glass': '0 8px 32px 0 rgba(197, 155, 39, 0.05)',
-                        'elegant': '0 10px 40px -10px rgba(15, 23, 42, 0.08)',
-                        'card': '0 2px 10px -2px rgba(15, 23, 42, 0.03)',
+                        'mac': '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        'mac-hover': '0 10px 40px rgba(0, 0, 0, 0.08)',
+                        'mac-modal': '0 20px 60px rgba(0, 0, 0, 0.15)',
                     }
                 }
             }
@@ -60,77 +52,75 @@
     
     <style>
         body {
-            background-color: #F5EBE0;
-            color: #0F172A;
+            background-color: #F5F5F7; /* Apple specific background gray */
+            color: #1D1D1F; /* Apple text color */
             -webkit-font-smoothing: antialiased;
-            /* Subtle Islamic Pattern Background */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C59B27' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            -moz-osx-font-smoothing: grayscale;
+            
+            /* Very subtle, large, soft gradient blobs in the background mimicking macOS Monterey/Ventura wallpapers */
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(210, 100%, 95%, 1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(40, 100%, 93%, 1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(140, 50%, 95%, 1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(0, 0%, 98%, 1) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
-        /* Elegant Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #D5C8B8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
-
-        /* Glassmorphism utilities */
-        .glass-panel {
-            background: rgba(253, 248, 240, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(235, 224, 211, 0.8);
+        /* macOS Glassmorphism */
+        .mac-glass {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: saturate(180%) blur(25px);
+            -webkit-backdrop-filter: saturate(180%) blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
+        
+        .mac-glass-solid {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Minimal Scrollbar */
+        ::-webkit-scrollbar { width: 0px; height: 0px; }
 
         /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        .animate-scale-in { animation: scaleIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         
-        .day-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .day-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(197, 155, 39, 0.2); z-index: 10; border-color: #D4AF37; }
-
-        /* Print Mode Optimization */
-        @media print {
-            body { background: #ffffff !important; color: #000000 !important; }
-            .no-print { display: none !important; }
-            .print-grid { grid-template-columns: repeat(7, 1fr) !important; gap: 4px !important; }
-            .print-card { 
-                border: 1px solid #000 !important; 
-                box-shadow: none !important; 
-                background-color: #fff !important; 
-                min-height: 100px !important; 
-                padding: 8px !important;
-                page-break-inside: avoid;
-            }
-            .print-note { display: block !important; font-size: 11px !important; margin-top: 5px; border-top: 1px dashed #ccc; padding-top: 5px; }
-            .hide-on-print { display: none !important; }
-        }
+        /* Smooth interactions */
+        .day-card { transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .day-card:hover { transform: scale(1.02); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06); z-index: 10; border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.95); }
+        
+        /* Apple Toggle Switch */
+        .toggle-switch { transition: background-color 0.3s ease; }
+        .toggle-dot { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-gold-400/20 selection:text-gold-600">
+<body class="min-h-screen flex flex-col selection:bg-mac-blue selection:text-white">
 
     <!-- Header / Navbar -->
-    <header class="glass-panel sticky top-0 z-40 shadow-sm transition-all duration-300 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <header class="mac-glass sticky top-0 z-40 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-white shadow-lg shadow-gold-500/30">
-                    <i class="fa-solid fa-kaaba text-xl"></i>
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-gold-500 to-yellow-600 flex items-center justify-center text-white shadow-lg shadow-gold-500/20">
+                    <i class="fa-solid fa-kaaba text-lg"></i>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-gold-400/10 text-gold-600 border border-gold-400/20 tracking-wider">
-                            توثيق الأيام الفضيلة
-                        </span>
-                        <span class="text-charcoal-700/50 text-xs font-bold">١٤٤٧ هـ</span>
+                    <h1 class="text-xl font-bold text-mac-text tracking-tight mb-0.5">تقويم ذو الحجة</h1>
+                    <div class="flex items-center gap-1.5 text-[11px] font-medium text-mac-textMuted">
+                        <span>رصد الأيام الفضيلة</span>
+                        <span>•</span>
+                        <span>١٤٤٧ هـ</span>
                     </div>
-                    <h1 class="text-2xl font-display font-bold text-charcoal-900 tracking-tight">تقويم شهر ذو الحجة</h1>
                 </div>
             </div>
             
-            <div class="flex items-center gap-3 bg-cream-50 border border-cream-300 px-5 py-2.5 rounded-2xl shadow-card">
-                <div class="text-gold-500 animate-pulse"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="flex items-center gap-3 bg-white/50 border border-white/60 px-4 py-2 rounded-2xl shadow-sm backdrop-blur-md">
+                <div class="text-mac-blue text-sm"><i class="fa-solid fa-clock"></i></div>
                 <div>
-                    <span class="text-[10px] text-charcoal-700 block font-bold mb-0.5">العد التنازلي لعيد الأضحى</span>
-                    <span class="text-sm font-bold text-charcoal-900" id="countdown-display">جاري الحساب...</span>
+                    <span class="text-[9px] text-mac-textMuted block font-bold mb-0.5 uppercase tracking-wider">العد التنازلي للعيد</span>
+                    <span class="text-xs font-bold text-mac-text" id="countdown-display">جاري الحساب...</span>
                 </div>
             </div>
         </div>
@@ -139,189 +129,158 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-8 py-8">
         
         <!-- Dashboard / Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-10 no-print">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-8">
             
             <!-- Stats Panel -->
-            <div class="md:col-span-4 bg-cream-50 border border-cream-300 rounded-[24px] p-6 shadow-card hover:shadow-elegant transition-shadow relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gold-400/5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
-                <h3 class="font-bold text-sm text-charcoal-900 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-pie text-gold-500"></i> إنجازك في هذا الشهر
+            <div class="md:col-span-4 mac-glass rounded-[28px] p-6 shadow-mac hover:shadow-mac-hover transition-shadow relative overflow-hidden">
+                <h3 class="font-semibold text-sm text-mac-text mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-mac-blue"></i> الإنجاز الشهري
                 </h3>
                 <div class="flex items-end gap-4 mb-5">
                     <div>
-                        <span class="text-[11px] text-charcoal-700 font-bold block mb-1">أيام وُثقت</span>
+                        <span class="text-[11px] text-mac-textMuted font-medium block mb-1">الأيام الموثقة</span>
                         <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-display font-bold text-gold-500" id="stat-noted-days">٠</span>
-                            <span class="text-xs text-charcoal-700 font-bold">/ ٣٠</span>
+                            <span class="text-4xl font-display font-bold text-mac-text" id="stat-noted-days">٠</span>
+                            <span class="text-xs text-mac-textMuted font-medium">/ ٣٠</span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <div class="flex justify-between text-[11px] text-charcoal-800 mb-2 font-bold">
-                        <span>نسبة الإكمال العام</span>
-                        <span id="coverage-percentage" class="text-gold-600">٠%</span>
+                    <div class="flex justify-between text-[11px] text-mac-text mb-2 font-medium">
+                        <span>نسبة الإكمال</span>
+                        <span id="coverage-percentage" class="text-mac-blue font-bold">٠%</span>
                     </div>
-                    <div class="w-full bg-cream-200 rounded-full h-2 overflow-hidden shadow-inner">
-                        <div id="coverage-bar" class="bg-gradient-to-r from-gold-400 to-gold-500 h-full rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                    <div class="w-full bg-mac-gray rounded-full h-1.5 overflow-hidden">
+                        <div id="coverage-bar" class="bg-mac-blue h-full rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Navigation Panel -->
-            <div class="md:col-span-4 bg-cream-50 border border-cream-300 rounded-[24px] p-6 shadow-card hover:shadow-elegant transition-shadow">
-                <h3 class="font-bold text-sm text-charcoal-900 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-compass text-gold-500"></i> محطات روحانية
+            <div class="md:col-span-4 mac-glass rounded-[28px] p-6 shadow-mac hover:shadow-mac-hover transition-shadow">
+                <h3 class="font-semibold text-sm text-mac-text mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-mac-red"></i> محطات سريعة
                 </h3>
-                <div class="space-y-2">
-                    <button onclick="scrollToDay(1)" class="w-full flex items-center justify-between p-3 rounded-xl bg-cream-100 hover:bg-gold-400/10 border border-transparent hover:border-gold-400/20 transition-all text-right group">
-                        <span class="font-bold text-xs text-charcoal-800 group-hover:text-gold-600 transition-colors">العشر الأوائل الفضيلة</span>
-                        <span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm text-charcoal-700">١ - ٩ ذو الحجة</span>
+                <div class="space-y-2.5">
+                    <button onclick="scrollToDay(1)" class="w-full flex items-center justify-between p-3 rounded-2xl bg-white/40 hover:bg-white/80 border border-white/50 transition-all text-right group">
+                        <span class="font-medium text-xs text-mac-text">العشر الأوائل</span>
+                        <span class="text-[10px] text-mac-textMuted bg-mac-bg px-2 py-1 rounded-md">١ - ٩</span>
                     </button>
-                    <button onclick="scrollToDay(9)" class="w-full flex items-center justify-between p-3 rounded-xl bg-emerald-700/5 hover:bg-emerald-700/10 border border-emerald-700/10 transition-all text-right group">
-                        <span class="font-bold text-xs text-emerald-800 flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-700 animate-pulse"></span> يوم عرفة
+                    <button onclick="scrollToDay(9)" class="w-full flex items-center justify-between p-3 rounded-2xl bg-white/40 hover:bg-white/80 border border-white/50 transition-all text-right group">
+                        <span class="font-semibold text-xs text-mac-text flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-mac-blue"></span> يوم عرفة
                         </span>
-                        <span class="text-[10px] bg-white text-emerald-800 px-2 py-1 rounded shadow-sm font-bold">٩ ذو الحجة</span>
+                        <span class="text-[10px] text-mac-textMuted bg-mac-bg px-2 py-1 rounded-md">٩</span>
                     </button>
-                    <button onclick="scrollToDay(10)" class="w-full flex items-center justify-between p-3 rounded-xl bg-charcoal-900/5 hover:bg-charcoal-900/10 border border-transparent transition-all text-right group">
-                        <span class="font-bold text-xs text-charcoal-900">عيد الأضحى المبارك</span>
-                        <span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm text-charcoal-700">١٠ ذو الحجة</span>
+                    <button onclick="scrollToDay(10)" class="w-full flex items-center justify-between p-3 rounded-2xl bg-white/40 hover:bg-white/80 border border-white/50 transition-all text-right group">
+                        <span class="font-semibold text-xs text-mac-text flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-500"></span> عيد الأضحى
+                        </span>
+                        <span class="text-[10px] text-mac-textMuted bg-mac-bg px-2 py-1 rounded-md">١٠</span>
                     </button>
                 </div>
             </div>
 
             <!-- Settings Panel -->
-            <div class="md:col-span-4 bg-cream-50 border border-cream-300 rounded-[24px] p-6 shadow-card hover:shadow-elegant transition-shadow flex flex-col justify-between">
+            <div class="md:col-span-4 mac-glass rounded-[28px] p-6 shadow-mac hover:shadow-mac-hover transition-shadow flex flex-col justify-between">
                 <div>
-                    <h3 class="font-bold text-sm text-charcoal-900 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-sliders text-gold-500"></i> خيارات العرض والبيانات
+                    <h3 class="font-semibold text-sm text-mac-text mb-5 flex items-center gap-2">
+                        <i class="fa-solid fa-gear text-mac-textMuted"></i> إعدادات النظام
                     </h3>
                     
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-xs font-bold text-charcoal-800">التاريخ الميلادي</span>
-                        <button id="toggle-gregorian" onclick="toggleGregorian()" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none bg-gold-400">
-                            <span id="toggle-switch-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform -translate-x-1 translate-x-6"></span>
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-white/40 border border-white/50 mb-4">
+                        <span class="text-xs font-medium text-mac-text">التاريخ الميلادي</span>
+                        <button id="toggle-gregorian" onclick="toggleGregorian()" class="toggle-switch relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none bg-mac-green">
+                            <span id="toggle-switch-dot" class="toggle-dot inline-block h-5 w-5 transform rounded-full bg-white shadow-sm -translate-x-0.5 translate-x-5"></span>
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2 mb-4">
-                        <button onclick="exportBackupData()" class="py-2.5 bg-cream-200 hover:bg-cream-300 text-charcoal-800 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> تصدير
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="exportBackupData()" class="py-2.5 bg-white/60 hover:bg-white text-mac-text border border-white rounded-xl text-xs font-medium transition shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-arrow-up-from-bracket text-mac-textMuted"></i> تصدير
                         </button>
-                        <button onclick="triggerImport()" class="py-2.5 bg-cream-200 hover:bg-cream-300 text-charcoal-800 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-upload"></i> استيراد
+                        <button onclick="triggerImport()" class="py-2.5 bg-white/60 hover:bg-white text-mac-text border border-white rounded-xl text-xs font-medium transition shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-arrow-down-to-bracket text-mac-textMuted"></i> استيراد
                         </button>
                         <input type="file" id="import-file-input" accept=".json" class="hidden" onchange="importBackupData(event)">
                     </div>
 
-                    <!-- Google Sheets Easy Embed -->
-                    <div class="mt-4 pt-4 border-t border-cream-300/60">
-                        <label class="text-[10px] font-bold text-charcoal-700 mb-2 block"><i class="fa-solid fa-link text-emerald-700"></i> عرض Google Sheet مباشر</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="sheet-embed-input" placeholder="ضع رابط الشيت أو كود <iframe> هنا..." class="flex-1 text-[10px] p-2.5 rounded-xl border border-cream-300 focus:border-emerald-700 outline-none bg-white font-sans text-left" dir="ltr">
-                            <button onclick="applySheetEmbed()" class="py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-[10px] font-bold transition shadow-sm whitespace-nowrap">ربط وعرض</button>
+                    <div class="mt-4 pt-4 border-t border-white/40">
+                        <label class="text-[10px] font-semibold text-mac-textMuted mb-2 block">رابط مساحة العمل (Google Sheets)</label>
+                        <div class="flex flex-col gap-2">
+                            <input type="text" id="sheet-url-input" placeholder="ضع الرابط أو كود <iframe> هنا..." class="w-full text-xs p-2.5 rounded-xl border border-white/50 focus:border-mac-blue outline-none bg-white/50 backdrop-blur-sm text-mac-text font-sans text-left transition-all" dir="ltr" onchange="saveSheetUrl()">
+                            <div class="flex gap-2">
+                                <button onclick="saveSheetUrl()" class="flex-1 py-2 bg-mac-blue/10 hover:bg-mac-blue/20 text-mac-blue rounded-xl text-xs font-medium transition">حفظ الرابط</button>
+                                <button onclick="openSheet()" id="open-sheet-btn" class="flex-1 py-2 bg-white/60 hover:bg-white text-mac-text rounded-xl text-xs font-medium transition shadow-sm hidden">فتح الجدول <i class="fa-solid fa-arrow-up-right-from-square text-[10px] mr-1"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="flex gap-2 border-t border-cream-300 pt-4 mt-4">
-                    <button onclick="window.print()" class="flex-1 py-2 bg-charcoal-900 hover:bg-charcoal-800 text-white rounded-xl text-xs font-bold transition shadow-md flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-print"></i> طباعة التقرير
-                    </button>
-                    <button onclick="confirmClearAllNotes()" title="حذف جميع البيانات" class="w-10 h-10 flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition">
-                        <i class="fa-solid fa-trash-can"></i>
+                <div class="mt-4">
+                    <button onclick="confirmClearAllNotes()" class="w-full py-2.5 bg-mac-red/10 hover:bg-mac-red/20 text-mac-red rounded-xl text-xs font-medium transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-trash"></i> تهيئة البيانات
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Main Calendar Grid Section -->
-        <div class="bg-cream-50 border border-cream-300 rounded-[32px] p-4 sm:p-8 shadow-elegant relative">
+        <div class="mac-glass rounded-[36px] p-5 sm:p-8 shadow-mac relative">
             
             <!-- Days Header -->
-            <div class="grid grid-cols-7 gap-2 mb-4 text-center">
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">السبت</div>
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">الأحد</div>
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">الاثنين</div>
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">الثلاثاء</div>
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">الأربعاء</div>
-                <div class="py-3 text-xs font-bold text-charcoal-700 bg-cream-100 rounded-xl">الخميس</div>
-                <div class="py-3 text-xs font-bold text-emerald-800 bg-emerald-700/10 rounded-xl">الجمعة</div>
+            <div class="grid grid-cols-7 gap-3 mb-5 text-center">
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">السبت</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">الأحد</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">الاثنين</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">الثلاثاء</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">الأربعاء</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-textMuted uppercase tracking-wider">الخميس</div>
+                <div class="py-2 text-[10px] sm:text-xs font-semibold text-mac-blue uppercase tracking-wider">الجمعة</div>
             </div>
 
             <!-- Dynamic Calendar Container -->
-            <div id="calendar-days-grid" class="grid grid-cols-7 gap-2 sm:gap-3 print-grid">
+            <div id="calendar-days-grid" class="grid grid-cols-7 gap-3 sm:gap-4">
                 <!-- Javascript will inject the grid items here -->
-            </div>
-        </div>
-
-        <!-- Google Sheet Viewer -->
-        <div id="google-sheet-viewer" class="hidden mt-8 bg-cream-50 border border-cream-300 rounded-[32px] p-4 sm:p-8 shadow-elegant no-print transition-all duration-500">
-            <div class="flex justify-between items-center mb-4 px-2">
-                <h3 class="font-bold text-sm text-charcoal-900 flex items-center gap-2">
-                    <i class="fa-solid fa-table text-emerald-700"></i> جدول البيانات المرفق (Google Sheets)
-                </h3>
-                <button onclick="removeSheet()" class="text-[10px] bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1 shadow-sm border border-red-100">
-                    <i class="fa-solid fa-trash-can"></i> إزالة الربط
-                </button>
-            </div>
-            <div class="w-full h-[500px] sm:h-[600px] rounded-2xl overflow-hidden border border-cream-300 shadow-inner bg-white relative">
-                <iframe id="sheet-iframe" class="w-full h-full border-none absolute inset-0" src=""></iframe>
             </div>
         </div>
     </main>
 
     <!-- Interactive Note Modal -->
-    <div id="note-modal" class="fixed inset-0 bg-charcoal-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden no-print transition-opacity duration-300 opacity-0">
-        <div class="bg-cream-50 rounded-[32px] max-w-lg w-full shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 border border-cream-300" id="modal-container">
+    <div id="note-modal" class="fixed inset-0 bg-mac-text/20 backdrop-blur-md flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300 opacity-0">
+        <div class="mac-glass-solid rounded-[32px] max-w-lg w-full shadow-mac-modal overflow-hidden transform scale-95 transition-transform duration-300 border border-white/60" id="modal-container">
             
             <!-- Modal Header -->
-            <div class="bg-white px-6 py-5 border-b border-cream-300 flex items-start justify-between relative">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-600 text-lg">
-                        <i class="fa-solid fa-pen-nib"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-base text-charcoal-900 font-display" id="modal-title">رصد اليوم</h4>
-                        <p class="text-[11px] text-charcoal-700 font-bold mt-0.5" id="modal-subtitle">الموافق</p>
-                    </div>
+            <div class="px-6 pt-6 pb-4 flex items-start justify-between relative">
+                <div>
+                    <h4 class="font-bold text-lg text-mac-text mb-1" id="modal-title">رصد اليوم</h4>
+                    <p class="text-[11px] text-mac-textMuted font-medium" id="modal-subtitle">الموافق</p>
                 </div>
-                <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-cream-100 text-charcoal-700 hover:bg-cream-200 hover:text-charcoal-900 transition">
+                <button onclick="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-mac-gray/50 hover:bg-mac-gray text-mac-textMuted hover:text-mac-text transition">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             
             <!-- Modal Body -->
-            <div class="p-6 space-y-5">
+            <div class="px-6 pb-6 space-y-5">
                 <!-- Categories -->
                 <div>
-                    <label class="block text-[10px] font-bold text-charcoal-700 mb-2">تصنيف المذكرة</label>
-                    <div class="grid grid-cols-4 gap-2">
-                        <button type="button" onclick="selectTag('worship')" id="tag-worship" class="py-2.5 px-1 rounded-xl text-[11px] font-bold border transition-all flex flex-col items-center gap-1">
-                            <span class="text-sm">🕋</span> <span>عبادة</span>
-                        </button>
-                        <button type="button" onclick="selectTag('work')" id="tag-work" class="py-2.5 px-1 rounded-xl text-[11px] font-bold border transition-all flex flex-col items-center gap-1">
-                            <span class="text-sm">💼</span> <span>مهام</span>
-                        </button>
-                        <button type="button" onclick="selectTag('family')" id="tag-family" class="py-2.5 px-1 rounded-xl text-[11px] font-bold border transition-all flex flex-col items-center gap-1">
-                            <span class="text-sm">👥</span> <span>عائلة</span>
-                        </button>
-                        <button type="button" onclick="selectTag('general')" id="tag-general" class="py-2.5 px-1 rounded-xl text-[11px] font-bold border transition-all flex flex-col items-center gap-1">
-                            <span class="text-sm">📝</span> <span>عام</span>
-                        </button>
+                    <div class="flex gap-2 p-1 bg-mac-gray/40 rounded-2xl border border-white/50">
+                        <button type="button" onclick="selectTag('worship')" id="tag-worship" class="flex-1 py-2 rounded-xl text-[11px] font-medium transition-all text-mac-textMuted hover:text-mac-text">عبادة</button>
+                        <button type="button" onclick="selectTag('work')" id="tag-work" class="flex-1 py-2 rounded-xl text-[11px] font-medium transition-all text-mac-textMuted hover:text-mac-text">مهام</button>
+                        <button type="button" onclick="selectTag('family')" id="tag-family" class="flex-1 py-2 rounded-xl text-[11px] font-medium transition-all text-mac-textMuted hover:text-mac-text">عائلة</button>
+                        <button type="button" onclick="selectTag('general')" id="tag-general" class="flex-1 py-2 rounded-xl text-[11px] font-medium transition-all text-mac-textMuted hover:text-mac-text">عام</button>
                     </div>
                 </div>
 
                 <!-- Text Area -->
                 <div>
-                    <textarea id="note-text-area" rows="4" placeholder="دوّن إنجازاتك، مشاعرك، أو مهامك لهذا اليوم المبارك..." class="w-full rounded-2xl border-2 border-cream-300 focus:border-gold-400 focus:ring-0 text-sm p-4 transition-colors outline-none bg-white text-charcoal-900 resize-none font-sans leading-relaxed"></textarea>
+                    <textarea id="note-text-area" rows="4" placeholder="اكتب مذكراتك هنا..." class="w-full rounded-2xl border border-mac-gray/80 focus:border-mac-blue focus:ring-4 focus:ring-mac-blue/10 text-sm p-4 transition-all outline-none bg-white/70 backdrop-blur-sm text-mac-text resize-none font-sans leading-relaxed shadow-inner"></textarea>
                 </div>
                 
                 <!-- Smart Suggestions -->
-                <div class="bg-cream-100/50 p-4 rounded-2xl border border-cream-300">
-                    <div class="text-[10px] font-bold text-charcoal-800 mb-2.5 flex items-center gap-1.5">
-                        <i class="fa-solid fa-lightbulb text-gold-500"></i> اقتراحات للإنجاز:
-                    </div>
+                <div>
+                    <div class="text-[10px] font-semibold text-mac-textMuted mb-2 px-1">اقتراحات:</div>
                     <div class="flex flex-wrap gap-2" id="modal-quick-suggestions">
                         <!-- Injected dynamically -->
                     </div>
@@ -329,35 +288,32 @@
             </div>
 
             <!-- Modal Footer -->
-            <div class="bg-cream-50 px-6 py-4 flex items-center justify-between border-t border-cream-300">
-                <button type="button" onclick="deleteNote()" class="py-2.5 px-4 rounded-xl hover:bg-red-100 text-red-600 text-xs font-bold transition flex items-center gap-2">
-                    <i class="fa-regular fa-trash-can"></i> حذف
+            <div class="bg-mac-gray/20 px-6 py-4 flex items-center justify-between border-t border-white/40">
+                <button type="button" onclick="deleteNote()" class="py-2.5 px-4 rounded-xl text-mac-red text-xs font-medium hover:bg-mac-red/10 transition flex items-center gap-1.5">
+                    حذف
                 </button>
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="closeModal()" class="py-2.5 px-5 rounded-xl bg-white border border-cream-300 hover:bg-cream-100 text-charcoal-800 text-xs font-bold transition shadow-sm">إلغاء</button>
-                    <button type="button" onclick="saveNote()" class="py-2.5 px-6 rounded-xl bg-gold-500 hover:bg-gold-600 text-white text-xs font-bold shadow-lg shadow-gold-500/30 transition">حفظ وإغلاق</button>
+                    <button type="button" onclick="closeModal()" class="py-2.5 px-5 rounded-xl bg-white hover:bg-mac-bg text-mac-text border border-mac-gray text-xs font-medium transition shadow-sm">إلغاء</button>
+                    <button type="button" onclick="saveNote()" class="py-2.5 px-6 rounded-xl bg-mac-blue hover:bg-blue-600 text-white text-xs font-medium shadow-sm transition">حفظ التغييرات</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Custom Alert System -->
-    <div id="custom-alert-dialog" class="fixed inset-0 bg-charcoal-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-[60] hidden no-print transition-opacity opacity-0">
-        <div class="bg-white rounded-[24px] max-w-sm w-full p-6 text-center shadow-2xl border border-cream-300 transform scale-95 transition-transform" id="alert-container">
-            <div class="w-14 h-14 rounded-full bg-gold-400/10 text-gold-500 flex items-center justify-center mx-auto text-2xl mb-4">
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <h4 class="font-bold text-base text-charcoal-900 font-display" id="alert-title-text">تنبيه</h4>
-            <p class="text-xs text-charcoal-700 mt-2 leading-relaxed" id="alert-message-text">رسالة التنبيه</p>
-            <div class="flex gap-3 mt-6">
-                <button onclick="closeAlert()" id="alert-cancel-button" class="flex-1 py-3 px-4 rounded-xl bg-cream-100 hover:bg-cream-200 text-charcoal-800 text-xs font-bold transition">تراجع</button>
-                <button id="alert-confirm-button" class="flex-1 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition shadow-lg shadow-red-600/20">تأكيد الإجراء</button>
+    <div id="custom-alert-dialog" class="fixed inset-0 bg-mac-text/20 backdrop-blur-md flex items-center justify-center p-4 z-[60] hidden transition-opacity opacity-0">
+        <div class="mac-glass-solid rounded-[32px] max-w-sm w-full p-6 text-center shadow-mac-modal border border-white/60 transform scale-95 transition-transform" id="alert-container">
+            <h4 class="font-bold text-lg text-mac-text mb-2" id="alert-title-text">تنبيه</h4>
+            <p class="text-sm text-mac-textMuted leading-relaxed" id="alert-message-text">رسالة التنبيه</p>
+            <div class="flex flex-col gap-2 mt-6">
+                <button id="alert-confirm-button" class="w-full py-3 px-4 rounded-xl bg-mac-red hover:bg-red-600 text-white text-sm font-medium transition shadow-sm">تأكيد</button>
+                <button onclick="closeAlert()" id="alert-cancel-button" class="w-full py-3 px-4 rounded-xl bg-transparent hover:bg-mac-gray/50 text-mac-blue text-sm font-medium transition">إلغاء</button>
             </div>
         </div>
     </div>
 
-    <footer class="text-center py-8 text-xs text-charcoal-700/60 font-bold no-print border-t border-cream-300 mt-8">
-        <p>التقويم التوثيقي لشهر ذو الحجة ١٤٤٧ هـ • يتم حفظ البيانات محلياً في متصفحك لضمان الخصوصية.</p>
+    <footer class="text-center py-8 text-[11px] text-mac-textMuted font-medium mt-auto">
+        <p>التقويم التوثيقي لشهر ذو الحجة ١٤٤٧ هـ • يتم حفظ البيانات محلياً بخصوصية تامة.</p>
     </footer>
 
     <script>
@@ -366,21 +322,21 @@
         let selectedDayIndex = null;
         let selectedTagState = 'general';
         let notesDataStorage = {}; 
+        let savedGoogleSheetUrl = '';
 
-        // Religious suggestions database based on the period
+        // Religious suggestions
         const recommendationList = {
             general: ["ورد القرآن اليومي", "الاستغفار والذكر", "إنجاز مهام العمل"],
-            tenDays: ["التكبير المطلق والمقيد", "الصدقة اليومية", "قيام الليل", "صيام هذا اليوم"],
-            arafah: ["صيام عرفة (يكفر سنتين)", "الدعاء طوال اليوم", "الذكر: لا إله إلا الله..."],
-            eid: ["أداء صلاة العيد", "نحر الأضحية وتوزيعها", "صلة الرحم والتهنئة"],
-            tashreeq: ["التكبير دبر الصلوات المكتوبة", "الإكثار من ذكر الله", "إدخال السرور على الأهل"]
+            tenDays: ["التكبير المطلق والمقيد", "الصدقة اليومية", "صيام هذا اليوم"],
+            arafah: ["صيام عرفة", "الدعاء طوال اليوم", "الذكر: لا إله إلا الله..."],
+            eid: ["أداء صلاة العيد", "نحر الأضحية وتوزيعها", "صلة الرحم"],
+            tashreeq: ["التكبير دبر الصلوات", "الإكثار من ذكر الله", "الجلوس مع العائلة"]
         };
 
-        // Month Configuration: Dhu al-Hijjah 1447 starts Monday, May 18, 2026
+        // Month Configuration
         const totalMonthDays = 30;
         const offsetFirstDay = 2; // Monday (0=Sat, 1=Sun, 2=Mon)
 
-        // Utility: Convert English numbers to Arabic
         const arabicNumerals = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
         const toArabicNum = (num) => String(num).split('').map(d => /[0-9]/.test(d) ? arabicNumerals[parseInt(d)] : d).join('');
 
@@ -401,23 +357,20 @@
 
             if (hDayNum >= 1 && hDayNum <= 9) {
                 keySuggestionGroup = "tenDays";
-                specialCardClass = "bg-white border-gold-400/30 hover:border-gold-400";
                 if(hDayNum === 9) {
                     keySuggestionGroup = "arafah";
-                    specialCardClass = "bg-emerald-700/5 border-emerald-700/30 hover:border-emerald-700 ring-1 ring-emerald-700/10";
-                    label = { text: "يوم عرفة", style: "bg-emerald-700 text-white" };
+                    specialCardClass = "bg-mac-blue/5 border-mac-blue/30";
+                    label = { text: "يوم عرفة", style: "text-mac-blue bg-mac-blue/10" };
                 } else if (hDayNum === 8) {
-                    label = { text: "يوم التروية", style: "bg-charcoal-800 text-white" };
+                    label = { text: "يوم التروية", style: "text-mac-textMuted bg-mac-gray" };
                 }
             } else if (hDayNum === 10) {
                 keySuggestionGroup = "eid";
-                specialCardClass = "bg-gold-50 border-gold-400 hover:border-gold-500 shadow-sm";
-                label = { text: "عيد الأضحى", style: "bg-gold-500 text-white" };
+                specialCardClass = "bg-gold-500/5 border-gold-500/30";
+                label = { text: "عيد الأضحى", style: "text-gold-600 bg-gold-500/10" };
             } else if (hDayNum >= 11 && hDayNum <= 13) {
                 keySuggestionGroup = "tashreeq";
-                label = { text: "أيام التشريق", style: "bg-cream-200 text-charcoal-800" };
-            } else {
-                specialCardClass = "bg-white border-cream-300 hover:border-gold-400/50";
+                label = { text: "أيام التشريق", style: "text-mac-textMuted bg-mac-gray" };
             }
 
             generatedDaysArray.push({
@@ -436,23 +389,29 @@
             renderCalendar();
             calculateCountdownToEid();
             updateLiveStats();
-            renderSheet(); // Load sheet if exists
         };
 
         function loadLocalData() {
-            const savedNotes = localStorage.getItem('dh_1447_premium_notes');
+            const savedNotes = localStorage.getItem('dh_1447_mac_notes');
             if (savedNotes) {
                 try { notesDataStorage = JSON.parse(savedNotes); } 
                 catch(e) { console.error("Error parsing data", e); notesDataStorage = {}; }
             }
             
-            const pref = localStorage.getItem('dh_1447_greg_pref');
+            const pref = localStorage.getItem('dh_1447_mac_greg_pref');
             if (pref !== null) displayGregorianState = pref === 'true';
             updateGregorianToggleUI();
+
+            const savedSheet = localStorage.getItem('dh_1447_mac_sheet_url');
+            if (savedSheet) {
+                savedGoogleSheetUrl = savedSheet;
+                document.getElementById('sheet-url-input').value = savedGoogleSheetUrl;
+                document.getElementById('open-sheet-btn').classList.remove('hidden');
+            }
         }
 
         function saveData() {
-            localStorage.setItem('dh_1447_premium_notes', JSON.stringify(notesDataStorage));
+            localStorage.setItem('dh_1447_mac_notes', JSON.stringify(notesDataStorage));
             updateLiveStats();
         }
 
@@ -461,10 +420,9 @@
             const grid = document.getElementById('calendar-days-grid');
             grid.innerHTML = '';
 
-            // Empty offset cells for start of month
             for (let i = 0; i < offsetFirstDay; i++) {
                 const emptyCell = document.createElement('div');
-                emptyCell.className = "bg-cream-100/50 rounded-2xl min-h-[100px] sm:min-h-[130px] border border-cream-200/50 opacity-50 no-print";
+                emptyCell.className = "bg-white/20 rounded-[24px] min-h-[110px] sm:min-h-[130px] border border-white/30";
                 grid.appendChild(emptyCell);
             }
 
@@ -473,42 +431,34 @@
                 const noteData = notesDataStorage[`day-${day.hijri}`];
                 const hasNote = noteData && noteData.text.trim() !== "";
                 
-                let tagIcon = "";
-                let bgActiveStyle = "";
-                
+                let indicatorMarkup = "";
                 if (hasNote) {
-                    bgActiveStyle = "ring-2 ring-gold-400 shadow-md bg-white";
-                    if (noteData.tag === 'worship') tagIcon = "🕋";
-                    else if (noteData.tag === 'work') tagIcon = "💼";
-                    else if (noteData.tag === 'family') tagIcon = "👥";
-                    else tagIcon = "📝";
+                    let indicatorColor = "bg-mac-textMuted";
+                    if (noteData.tag === 'worship') indicatorColor = "bg-mac-blue";
+                    else if (noteData.tag === 'work') indicatorColor = "bg-gold-500";
+                    else if (noteData.tag === 'family') indicatorColor = "bg-mac-green";
+                    
+                    indicatorMarkup = `<div class="w-2 h-2 rounded-full ${indicatorColor} absolute top-4 left-4 shadow-sm"></div>`;
                 }
 
-                // Base Classes
-                cell.className = `day-card rounded-[20px] border p-3 sm:p-4 min-h-[110px] sm:min-h-[130px] flex flex-col justify-between cursor-pointer group relative overflow-hidden print-card animate-fade-in ${day.cardStyle} ${bgActiveStyle}`;
-                cell.style.animationDelay = `${(index * 15)}ms`;
+                // Apple Card Style
+                cell.className = `day-card relative rounded-[24px] border ${day.cardStyle || 'border-white/60'} bg-white/60 backdrop-blur-sm p-4 min-h-[110px] sm:min-h-[130px] flex flex-col justify-between cursor-pointer animate-scale-in`;
+                cell.style.animationDelay = `${(index * 10)}ms`;
                 cell.onclick = () => openModal(day.hijri);
 
-                // Build HTML Content
                 cell.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <span class="text-2xl sm:text-3xl font-display font-bold ${hasNote ? 'text-gold-600' : 'text-charcoal-900'} group-hover:text-gold-500 transition-colors">${day.hijriAr}</span>
-                        ${hasNote ? `<span class="text-sm bg-cream-100 w-7 h-7 rounded-full flex items-center justify-center shadow-sm hide-on-print">${tagIcon}</span>` : ''}
+                    ${indicatorMarkup}
+                    <div class="flex flex-col items-start">
+                        <span class="text-2xl sm:text-3xl font-display font-bold ${hasNote ? 'text-mac-text' : 'text-mac-text'}">${day.hijriAr}</span>
+                        ${day.label ? `<span class="mt-1 text-[9px] font-semibold px-2 py-0.5 rounded-md ${day.label.style}">${day.label.text}</span>` : ''}
                     </div>
                     
-                    ${day.label ? `<div class="mt-1"><span class="text-[9px] font-bold px-2 py-0.5 rounded shadow-sm ${day.label.style}">${day.label.text}</span></div>` : ''}
-
                     <div class="mt-auto pt-2">
-                        <div class="gregorian-date text-[10px] text-charcoal-700 font-bold ${displayGregorianState ? '' : 'hidden'} hide-on-print">${day.gregorian}</div>
+                        <div class="gregorian-date text-[10px] text-mac-textMuted font-medium ${displayGregorianState ? '' : 'hidden'}">${day.gregorian}</div>
                         ${hasNote 
-                            ? `<p class="text-[10px] text-charcoal-800 leading-tight mt-1 line-clamp-2 font-bold hide-on-print">${noteData.text}</p>` 
-                            : `<p class="text-[10px] text-charcoal-400 mt-1 opacity-0 group-hover:opacity-100 transition-opacity font-bold hide-on-print"><i class="fa-solid fa-plus text-[8px]"></i> إضافة رصد</p>`
+                            ? `<p class="text-[10px] text-mac-text leading-snug mt-1 line-clamp-2 font-medium">${noteData.text}</p>` 
+                            : `<p class="text-[10px] text-mac-blue mt-1 opacity-0 hover:opacity-100 transition-opacity font-medium">إضافة +</p>`
                         }
-                    </div>
-                    
-                    <!-- Print Only Content -->
-                    <div class="hidden print-note">
-                        ${hasNote ? `<strong>التوثيق:</strong> ${noteData.text}` : ''}
                     </div>
                 `;
                 grid.appendChild(cell);
@@ -526,21 +476,21 @@
         }
 
         function calculateCountdownToEid() {
-            const today = new Date('2026-05-17'); // Mocking current date right before Dhu al-Hijjah
-            const eidDate = new Date('2026-05-27'); // 10 Dhu al-Hijjah 1447
+            const today = new Date('2026-05-17'); 
+            const eidDate = new Date('2026-05-27');
             
             const diffTime = eidDate - today;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
             const display = document.getElementById('countdown-display');
-            if (diffDays > 0) display.innerText = `باقي ${toArabicNum(diffDays)} أيام للعيد`;
-            else if (diffDays === 0) display.innerText = "اليوم يوم النحر المبارك 🎉";
-            else display.innerText = "تقبل الله طاعاتكم";
+            if (diffDays > 0) display.innerText = `باقي ${toArabicNum(diffDays)} يوم`;
+            else if (diffDays === 0) display.innerText = "اليوم هو العيد 🎉";
+            else display.innerText = "انقضى العيد";
         }
 
         function toggleGregorian() {
             displayGregorianState = !displayGregorianState;
-            localStorage.setItem('dh_1447_greg_pref', displayGregorianState);
+            localStorage.setItem('dh_1447_mac_greg_pref', displayGregorianState);
             updateGregorianToggleUI();
             
             document.querySelectorAll('.gregorian-date').forEach(el => {
@@ -552,21 +502,21 @@
             const dot = document.getElementById('toggle-switch-dot');
             const btn = document.getElementById('toggle-gregorian');
             if(displayGregorianState) {
-                btn.classList.add('bg-gold-500'); btn.classList.remove('bg-cream-300');
-                dot.classList.add('translate-x-6'); dot.classList.remove('-translate-x-1');
+                btn.classList.add('bg-mac-green'); btn.classList.remove('bg-mac-grayDark');
+                dot.classList.add('translate-x-5'); dot.classList.remove('-translate-x-0.5');
             } else {
-                btn.classList.remove('bg-gold-500'); btn.classList.add('bg-cream-300');
-                dot.classList.remove('translate-x-6'); dot.classList.add('-translate-x-1');
+                btn.classList.remove('bg-mac-green'); btn.classList.add('bg-mac-grayDark');
+                dot.classList.remove('translate-x-5'); dot.classList.add('-translate-x-0.5');
             }
         }
 
         function scrollToDay(dayNum) {
             const gridCards = document.querySelectorAll('.day-card');
-            const targetCard = gridCards[dayNum - 1 + offsetFirstDay]; // Account for empty cells
+            const targetCard = gridCards[dayNum - 1]; // direct mapping since offset is built as separate div class
             if(targetCard) {
                 targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                targetCard.classList.add('ring-4', 'ring-gold-400');
-                setTimeout(() => targetCard.classList.remove('ring-4', 'ring-gold-400'), 1500);
+                targetCard.classList.add('ring-2', 'ring-mac-blue', 'scale-105');
+                setTimeout(() => targetCard.classList.remove('ring-2', 'ring-mac-blue', 'scale-105'), 1000);
             }
         }
 
@@ -575,20 +525,20 @@
             selectedDayIndex = dayNum;
             const dayData = generatedDaysArray[dayNum - 1];
 
-            document.getElementById('modal-title').innerText = `توثيق يوم ${dayData.hijriAr} ذو الحجة`;
+            document.getElementById('modal-title').innerText = `يوم ${dayData.hijriAr} ذو الحجة`;
             document.getElementById('modal-subtitle').innerText = `${dayData.gregorian} ٢٠٢٦`;
 
             const note = notesDataStorage[`day-${dayNum}`];
             document.getElementById('note-text-area').value = note ? note.text : '';
             selectTag(note ? (note.tag || 'general') : 'general');
 
-            // Load Suggestions
+            // Load Suggestions (Apple style pills)
             const suggContainer = document.getElementById('modal-quick-suggestions');
             suggContainer.innerHTML = '';
             recommendationList[dayData.suggestions].forEach(text => {
                 const btn = document.createElement('button');
-                btn.className = "text-[10px] bg-white border border-cream-300 px-3 py-1.5 rounded-lg text-charcoal-700 hover:bg-gold-50 hover:text-gold-600 hover:border-gold-300 font-bold transition shadow-sm";
-                btn.innerText = `+ ${text}`;
+                btn.className = "text-[10px] bg-mac-bg hover:bg-mac-gray text-mac-text px-3 py-1.5 rounded-full font-medium transition";
+                btn.innerText = text;
                 btn.onclick = () => {
                     const ta = document.getElementById('note-text-area');
                     ta.value = ta.value ? `${ta.value}، ${text}` : text;
@@ -601,7 +551,6 @@
             const container = document.getElementById('modal-container');
             modal.classList.remove('hidden');
             
-            // Trigger animation frame for CSS transition
             requestAnimationFrame(() => {
                 modal.classList.remove('opacity-0');
                 container.classList.remove('scale-95');
@@ -621,9 +570,9 @@
             ['worship', 'work', 'family', 'general'].forEach(t => {
                 const el = document.getElementById(`tag-${t}`);
                 if (t === tag) {
-                    el.className = "py-2.5 px-1 rounded-xl text-[11px] font-bold border-2 border-gold-500 bg-gold-50 text-gold-600 shadow-sm transition-all flex flex-col items-center gap-1";
+                    el.className = "flex-1 py-2 rounded-xl text-[11px] font-semibold bg-white text-mac-text shadow-sm transition-all scale-105";
                 } else {
-                    el.className = "py-2.5 px-1 rounded-xl text-[11px] font-bold border-2 border-transparent bg-white hover:bg-cream-100 text-charcoal-700 transition-all flex flex-col items-center gap-1";
+                    el.className = "flex-1 py-2 rounded-xl text-[11px] font-medium bg-transparent text-mac-textMuted hover:text-mac-text transition-all";
                 }
             });
         }
@@ -650,14 +599,14 @@
         // --- Import / Export / Alerts ---
         function exportBackupData() {
             if (Object.keys(notesDataStorage).length === 0) {
-                showAlert("تنبيه", "لا توجد بيانات حالية لتصديرها.", true);
+                showAlert("لا توجد بيانات", "لا توجد مذكرات حالية لتصديرها.", true);
                 return;
             }
             const blob = new Blob([JSON.stringify(notesDataStorage)], {type: "application/json"});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = "مذكرات_ذو_الحجة_1447.json";
+            a.download = "مذكرات_ذو_الحجة.json";
             a.click();
             URL.revokeObjectURL(url);
         }
@@ -675,18 +624,18 @@
                         notesDataStorage = { ...notesDataStorage, ...data };
                         saveData();
                         renderCalendar();
-                        showAlert("نجاح", "تم استيراد البيانات بنجاح.", true);
+                        showAlert("نجاح", "تم استيراد البيانات بشكل صحيح.", true);
                     }
                 } catch (err) {
-                    showAlert("خطأ", "الملف غير صالح للاستيراد.", true);
+                    showAlert("خطأ", "الملف غير متوافق.", true);
                 }
             };
             reader.readAsText(file);
-            e.target.value = ''; // Reset input
+            e.target.value = '';
         }
 
         function confirmClearAllNotes() {
-            showAlert("حذف جميع البيانات", "هل أنت متأكد من رغبتك في حذف جميع المذكرات بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء إلا إذا كان لديك ملف تصدير احتياطي.", false, () => {
+            showAlert("مسح البيانات", "هل أنت متأكد من مسح جميع البيانات؟ لا يمكن التراجع عن هذا الإجراء.", false, () => {
                 notesDataStorage = {};
                 saveData();
                 renderCalendar();
@@ -706,13 +655,13 @@
 
             if(isInfo) {
                 cancelBtn.classList.add('hidden');
-                confirmBtn.innerText = "حسناً";
-                confirmBtn.className = "w-full py-3 px-4 rounded-xl bg-gold-500 hover:bg-gold-600 text-white text-xs font-bold transition shadow-md";
+                confirmBtn.innerText = "موافق";
+                confirmBtn.className = "w-full py-3 px-4 rounded-xl bg-mac-blue hover:bg-blue-600 text-white text-sm font-medium transition shadow-sm";
                 confirmBtn.onclick = closeAlert;
             } else {
                 cancelBtn.classList.remove('hidden');
-                confirmBtn.innerText = "تأكيد الحذف";
-                confirmBtn.className = "flex-1 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition shadow-md";
+                confirmBtn.innerText = "حذف الكل";
+                confirmBtn.className = "w-full py-3 px-4 rounded-xl bg-mac-red hover:bg-red-600 text-white text-sm font-medium transition shadow-sm";
                 confirmBtn.onclick = confirmCallback;
             }
 
@@ -731,50 +680,36 @@
             setTimeout(() => dialog.classList.add('hidden'), 300);
         }
 
-        // --- Google Sheets Viewer Logic ---
-        function applySheetEmbed() {
-            let input = document.getElementById('sheet-embed-input').value.trim();
+        // --- Google Sheets Link Logic ---
+        function saveSheetUrl() {
+            let input = document.getElementById('sheet-url-input').value.trim();
+            
+            // If empty, remove the saved URL
             if (!input) {
-                showAlert("تنبيه", "الرجاء إدخال رابط أو كود التضمين الخاص بـ Google Sheets.", true);
+                savedGoogleSheetUrl = '';
+                localStorage.removeItem('dh_1447_mac_sheet_url');
+                document.getElementById('open-sheet-btn').classList.add('hidden');
                 return;
             }
 
             let url = input;
-            // Extract the SRC automatically if the user pastes the full <iframe> html code
+            // Extract SRC if user pasted the entire <iframe> code
             const srcMatch = input.match(/src=["'](.*?)["']/);
             if (srcMatch && srcMatch[1]) {
                 url = srcMatch[1];
+                document.getElementById('sheet-url-input').value = url;
             }
 
-            localStorage.setItem('dh_1447_sheet_url', url);
-            renderSheet(true);
+            savedGoogleSheetUrl = url;
+            localStorage.setItem('dh_1447_mac_sheet_url', url);
+            document.getElementById('open-sheet-btn').classList.remove('hidden');
+            showAlert("تم الحفظ", "تم حفظ رابط Google Sheets بنجاح، يمكنك فتحه بأي وقت عبر الزر.", true);
         }
 
-        function renderSheet(isNew = false) {
-            const url = localStorage.getItem('dh_1447_sheet_url');
-            const viewer = document.getElementById('google-sheet-viewer');
-            const iframe = document.getElementById('sheet-iframe');
-            const input = document.getElementById('sheet-embed-input');
-
-            if (url) {
-                iframe.src = url;
-                viewer.classList.remove('hidden');
-                if(input) input.value = url;
-                
-                // Smooth scroll to the sheet if it was just added
-                if (isNew) {
-                    setTimeout(() => viewer.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
-                }
-            } else {
-                iframe.src = "";
-                viewer.classList.add('hidden');
-                if(input) input.value = "";
+        function openSheet() {
+            if (savedGoogleSheetUrl) {
+                window.open(savedGoogleSheetUrl, '_blank');
             }
-        }
-
-        function removeSheet() {
-            localStorage.removeItem('dh_1447_sheet_url');
-            renderSheet();
         }
     </script>
 </body>
